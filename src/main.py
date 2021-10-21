@@ -24,7 +24,7 @@ if __name__ == '__main__':
             status.run(config['Contest ID'])    
     elif len(arg) == 3:
         if arg[1] == 'submit':
-            cur =  info['Contest Folder Linux'] + '/' + config['Contest name'] + '/' + arg[2] + '.cpp'  
+            cur =  info['Contest Folder'] + '/' + config['Contest name'] + '/' + arg[2] + '.cpp'  
             if not os.path.exists(cur):
                 print(cur)
                 print('Submit file not found')

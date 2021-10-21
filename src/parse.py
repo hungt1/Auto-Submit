@@ -38,7 +38,7 @@ def run(id_contest):
     info = json.load(f)
     f.close()
 
-    contest_dir = info['Contest Folder Linux'] + '/' + contest_name
+    contest_dir = info['Contest Folder'] + '/' + contest_name
     if not os.path.exists(contest_dir):
         os.mkdir(contest_dir)
     

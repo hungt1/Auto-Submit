@@ -1,5 +1,4 @@
 # https://stackoverflow.com/questions/58620609/how-to-retain-the-login-state-in-selenium
-
 import json, requests
 from selenium import webdriver
 import warnings
@@ -35,14 +34,14 @@ def run(id_contest, problem_name, contest_name):
     options.add_argument(info["Profile Path"])
     options.add_argument("--headless")
 
-    driver = webdriver.Chrome(executable_path=info["Chrome driver"], options=options)
+    driver = webdriver.Chrome(executable_path=info['Chrome driver'], options=options)
 
     url = 'https://codeforces.com/contest/' + str(id_contest) + '/problem/' + problem_name
 
     driver.get(url)
-
     cur_path = info["Contest Folder"] + '/' + contest_name + '/' + problem_name + '.cpp'
     driver.find_element_by_xpath("//input[@name='sourceFile']").send_keys(cur_path)
+
     driver.find_element_by_xpath("//input[@class='submit']").click()
 
     try:
