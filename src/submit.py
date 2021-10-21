@@ -26,9 +26,10 @@ def get_status(id_contest):
         print(ans)
     return is_testing
 
-def run(id_contest, name_problem, name_contest):
+def run(id_contest, problem_name, contest_name):
     f = open('/mnt/d/Learning/Competitive Programming/Online Judge/Codeforces/setting.json')
     info = json.load(f)
+    f.close()
 
     options = webdriver.ChromeOptions()
     options.add_argument(info["Profile Path"])
@@ -36,11 +37,11 @@ def run(id_contest, name_problem, name_contest):
 
     driver = webdriver.Chrome(executable_path=info["Chrome driver"], options=options)
 
-    url = 'https://codeforces.com/contest/' + str(id_contest) + '/problem/' + name_problem
+    url = 'https://codeforces.com/contest/' + str(id_contest) + '/problem/' + problem_name
 
     driver.get(url)
 
-    cur_path = info["Contest Folder"] + '/' + name_contest + '/' + name_problem + '.cpp'
+    cur_path = info["Contest Folder"] + '/' + contest_name + '/' + problem_name + '.cpp'
     driver.find_element_by_xpath("//input[@name='sourceFile']").send_keys(cur_path)
     driver.find_element_by_xpath("//input[@class='submit']").click()
 
