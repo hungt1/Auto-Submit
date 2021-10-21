@@ -19,7 +19,7 @@ def get_status(id_contest):
         ver = status['verdict']
         if ver == 'TESTING':
             is_testing = True
-        ans = '{:<15} {:<20} {:<30} {:<20}'.format(user, lang, problem, ver)
+        ans = '{:<15} {:<20} {:<40} {:<20}'.format(user, lang, problem, ver)
     if is_testing:
         print(ans, end = '\r')
     else:

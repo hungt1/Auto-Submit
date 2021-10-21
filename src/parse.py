@@ -44,8 +44,9 @@ def run(id_contest):
     
     for problem in problems_list:
         cur = contest_dir + '/' + problem[0] + '.cpp'
-        f = open(cur, 'w')
-        f.close()
+        if not os.path.exists(cur):
+            f = open(cur, 'a')
+            f.close()
 
     data = dict()
     data['Contest ID'] = str(id_contest)

@@ -1,11 +1,12 @@
 import sys, os, json
 import status, submit, parse
+from sys import exit
 
 if __name__ == '__main__':
     arg = sys.argv
     if len(arg) == 3 and arg[1] == 'parse':
         parse.run(arg[2])
-        exit()
+        exit(0)
 
     try:
         f = open('CFconfig.json')
@@ -16,7 +17,7 @@ if __name__ == '__main__':
         f.close()
     except:
         print('Config file not found !!!')
-        exit()
+        exit(1)
 
     if len(arg) == 2:
         if arg[1] == 'status':
@@ -27,5 +28,5 @@ if __name__ == '__main__':
             if not os.path.exists(cur):
                 print(cur)
                 print('Submit file not found')
-                exit()
+                exit(1)
             submit.run(config['Contest ID'], arg[2], config['Contest name'])
