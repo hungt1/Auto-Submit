@@ -1,13 +1,21 @@
 import requests, json
 import os
 
-def get_contest_name(page):
-    pos = page.find('content="Dashboard - ')
+def get_contest_name(url):
+    while True: 
+        page = requests.get(url).text
+        pos = page.find('content="Dashboard - ')
+        if pos == -1:
+            print('Please wait until the contest starts ...', end = '\r')
+        else:
+            break
+        
     pos += len('content="Dashboard - ')
     ans = page[pos:page.find(' - Codeforces', pos)]
     return ans
 
-def get_problems_list(page):
+def get_problems_list(url):
+    page = requests.get(url).text
     ans = []
     page = page[page.find('generalAnnouncement'):]
     while True:
@@ -26,11 +34,11 @@ def get_problems_list(page):
 
 def run(id_contest):
     url = 'https://codeforces.com/contest/' + str(id_contest)
-    page = requests.get(url).text
 
-    contest_name = get_contest_name(page)
-    problems_list = get_problems_list(page)
+    contest_name = get_contest_name(url)
     
+    problems_list = get_problems_list(url)
+
     if contest_name == '' or len(problems_list) == 0: 
         return
 
@@ -52,8 +60,12 @@ def run(id_contest):
     data['Contest ID'] = str(id_contest)
     data['Contest name'] = contest_name
 
+    config = contest_dir + '/' + '__cfcache__'
+    if not os.path.exists(config):
+        os.mkdir(config)
+
     data = json.dumps(data, indent = 4)
-    with open(contest_dir + '/' + 'CFconfig.json', 'w') as outfile:
+    with open(config + '/' + 'config.json', 'w') as outfile:
         outfile.write(data)
 
     os.chdir(contest_dir)

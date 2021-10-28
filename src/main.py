@@ -2,6 +2,8 @@ import sys, os, json
 import status, submit, parse
 from sys import exit
 
+sys.tracebacklimit = 0
+
 if __name__ == '__main__':
     arg = sys.argv
     if len(arg) == 3 and arg[1] == 'parse':
@@ -9,7 +11,7 @@ if __name__ == '__main__':
         exit(0)
 
     try:
-        f = open('CFconfig.json')
+        f = open('./__cfcache__/config.json')
         config = json.load(f)
         f.close()
         f = open('/mnt/d/Learning/Competitive Programming/Online Judge/Codeforces/setting.json')
